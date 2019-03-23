@@ -15,6 +15,8 @@ namespace PracticeTest.Models
 
         public DateTime EndDate { get; set; }
 
-        public int MaximumCoupons { get; set; }
+        public int MaximumCouponsPerUser { get; set; }
+
+        public int MaximumCouponsAllUsers { get; set; }
     }
 }
