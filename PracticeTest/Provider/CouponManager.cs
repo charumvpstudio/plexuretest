@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Http;
 using PracticeTest.Logging;
 using PracticeTest.Models;
 
-namespace PracticeTest.Controllers
+namespace PracticeTest.Provider
 {
     public class CouponManager
     {

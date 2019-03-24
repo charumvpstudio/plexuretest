@@ -183,7 +183,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CouponController.cs" />
-    <Compile Include="Controllers\CouponManagerController.cs" />
+    <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Provider\CouponManager.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />

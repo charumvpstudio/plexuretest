@@ -7,7 +7,7 @@ namespace PracticeTest.Models
 {
     public class Coupon
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Title { get; set; }
 
@@ -18,5 +18,8 @@ namespace PracticeTest.Models
         public int MaximumCouponsPerUser { get; set; }
 
         public int MaximumCouponsAllUsers { get; set; }
+
+        public bool IsActive { get; set; }
+
     }
 }
