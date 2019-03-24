@@ -10,7 +10,5 @@ namespace PracticeTest.Repository
     public interface ICouponRepository
     {
         Task<IEnumerable<Coupon>> GetActiveCoupons();
-
-        Task<bool> CanRedeemCoupon(int userId);
     }
 }

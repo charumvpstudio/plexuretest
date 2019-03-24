@@ -28,16 +28,16 @@ namespace PracticeTest.Repository
         /// </summary>
         /// <param name="id">User Id</param>
         /// <returns>Return a user by Id</returns>
-        public IEnumerable<User> GetUsers(int id)
+        public IEnumerable<User> GetUsers(Guid id)
         {
             return _users.Where(x => x.Id.Equals(id)).ToList();
         }
 
         private void PopulateUsers()
         {
-            _users.Add(new User() { Id = 101, Name = "User1", CouponId = 2 });
-            _users.Add(new User() { Id = 102, Name = "User2", CouponId = 2 });
-            _users.Add(new User() { Id = 103, Name = "User3", CouponId = 1 });
+            _users.Add(new User() { Id = new Guid("4743d0e4-c303-4679-8533-9f5f312397a4"), Name = "User1" });
+            _users.Add(new User() { Id = new Guid("4743d0e4-c303-4679-8533-9f5f312397a5"), Name = "User2" });
+            _users.Add(new User() { Id = new Guid("4743d0e4-c303-4679-8533-9f5f312397a6"), Name = "User3" });
         }
     }
 }

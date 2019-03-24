@@ -59,6 +59,14 @@ namespace PlexureTests
            await Assert.ThrowsAsync<KeyNotFoundException>(() => couponManager.CanRedeemCoupon(couponId, userId, evaluators));
         }
 
+        [Theory]
+        [InlineData("3e595496-1549-410d-a579-9f6d09b2602a", "4743d0e4-c303-4679-8533-9f5f312397a4")]
+        public async Task CanRedeemCoupon_ReturnsTrue(Guid couponId, Guid userId)
+        {
+            var couponManager = this.CreateCouponManager();
+            Assert.True(couponManager.CanRedeemCoupon(couponId, userId, evaluators).Result);
+        }
+
         private CouponManager CreateCouponManager(bool value = false)
         {
             var mockLogger = MockRepository.GenerateStub<ILogger>();
@@ -68,14 +76,14 @@ namespace PlexureTests
                mockCouponProvider.Stub(i => i.Retrieve(Arg<Guid>.Is.Anything)).Return(Task.FromResult(coupon));
             else
                 mockCouponProvider.Stub(i => i.Retrieve(Arg<Guid>.Is.Anything)).
-                    Return(Task.FromResult(new Coupon(){Id = Guid.NewGuid(), Title = "", StartDate = DateTime.Now,EndDate = DateTime.Now, MaximumCouponsPerUser = 0, MaximumCouponsAllUsers = 0, IsActive = false}));
+                    Return(Task.FromResult(new Coupon(){ Id = new Guid("3e595496-1549-410d-a579-9f6d09b2602a"), Title = "A", StartDate = new DateTime(2019, 3, 1), EndDate = new DateTime(2019, 4, 1), MaximumCouponsPerUser = 10, MaximumCouponsAllUsers = 100, IsActive = true, UserId = new Guid("4743d0e4-c303-4679-8533-9f5f312397a4") }));
 
             return new CouponManager(mockLogger, mockCouponProvider);
         }
 
-        private static bool GetEvaluators(Coupon coupon, Guid couponId)
+        private static bool GetEvaluators(Coupon coupon, Guid userId)
         {
-            return coupon.Id.Equals(couponId);
+            return coupon.UserId.Equals(userId);
         }
     }
 }

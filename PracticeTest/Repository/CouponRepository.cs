@@ -27,21 +27,10 @@ namespace PracticeTest.Repository
             return (count >= 100 && count <= 500) ? _coupons.Where(x=>x.EndDate.Date > DateTime.Now.Date).ToList() : null;
         }
 
-        //public async Task<bool> CanRedeemCoupon(int userId, int couponId)
-        //{
-        //    int couponId = _userRepository.Value.GetUsers().FirstOrDefault();
-        //    return false;
-        //}
-
         private void PopulateCoupons()
         {
-            _coupons.Add(new Coupon() { Id = Guid.NewGuid(), Title = "A", StartDate = new DateTime(2019,3,1), EndDate = new DateTime(2019, 4, 1), MaximumCouponsPerUser = 10, MaximumCouponsAllUsers = 100, IsActive = true});
-            _coupons.Add(new Coupon() { Id = Guid.NewGuid(), Title = "B", StartDate = new DateTime(2019, 3, 2), EndDate = new DateTime(2019, 4, 1), MaximumCouponsPerUser = 7, MaximumCouponsAllUsers = 100, IsActive = false});
-        }
-
-        public Task<bool> CanRedeemCoupon(int userId)
-        {
-            throw new NotImplementedException();
+            _coupons.Add(new Coupon() { Id = new Guid("3e595496-1549-410d-a579-9f6d09b2602a"), Title = "A", StartDate = new DateTime(2019,3,1), EndDate = new DateTime(2019, 4, 1), MaximumCouponsPerUser = 10, MaximumCouponsAllUsers = 100, IsActive = true, UserId = new Guid("4743d0e4-c303-4679-8533-9f5f312397a4") });
+            _coupons.Add(new Coupon() { Id = new Guid("3e595496-1549-410d-a579-9f6d09b2602b"), Title = "B", StartDate = new DateTime(2019, 3, 2), EndDate = new DateTime(2019, 4, 1), MaximumCouponsPerUser = 7, MaximumCouponsAllUsers = 100, IsActive = false, UserId = new Guid("4743d0e4-c303-4679-8533-9f5f312397a5") });
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using PracticeTest.Models;
+using PracticeTest.Provider;
 using PracticeTest.Repository;
 
 namespace PracticeTest.Controllers
@@ -11,10 +12,16 @@ namespace PracticeTest.Controllers
     public class CouponController : ApiController
     {
         private readonly Lazy<ICouponRepository> _couponRepository;
+        private readonly Lazy<CouponManager> _couponManager;
+        private IEnumerable<Func<Coupon, Guid, bool>> evaluators = new List<Func<Coupon, Guid, bool>>()
+        {
+            GetEvaluators
+        };
 
-        public CouponController(Lazy<ICouponRepository> couponRepository)
+        public CouponController(Lazy<ICouponRepository> couponRepository, Lazy<CouponManager> couponManager)
         {
             _couponRepository = couponRepository ?? throw new ArgumentNullException(nameof(couponRepository));
+            _couponManager = couponManager ?? throw new ArgumentNullException(nameof(couponManager));
         }
 
         /// <summary>
@@ -33,10 +40,15 @@ namespace PracticeTest.Controllers
         /// </summary>
         /// <returns>returns whether customer coupon can be redeemed or not</returns>
         [HttpGet]
-        [Route("api/coupon/canredeemcoupon/{userId}")]
-        public async Task<bool> CanRedeemCouponAsync(int userId)
+        [Route("api/coupon/canredeemcoupon/couponId/{userId}")]
+        public async Task<bool> CanRedeemCouponAsync(Guid couponId, Guid userId)
         {
-            return await _couponRepository.Value.CanRedeemCoupon(userId);
+            return await _couponManager.Value.CanRedeemCoupon(couponId, userId, evaluators);
+        }
+
+        private static bool GetEvaluators(Coupon coupon, Guid userId)
+        {
+            return coupon.UserId.Equals(userId);
         }
     }
 }
